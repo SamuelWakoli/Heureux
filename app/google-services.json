@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "82817337749",
+    "project_id": "heureux-2c38a",
+    "storage_bucket": "heureux-2c38a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82817337749:android:4023520a2d21881d3b4e9c",
+        "android_client_info": {
+          "package_name": "com.inystudio.heureux"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "82817337749-a59pfi8ggjcp3iof0sg4g9rea44dj9qq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB58YM6baKzdmG__oe5AdAdnP9sxVyaHsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82817337749-a59pfi8ggjcp3iof0sg4g9rea44dj9qq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

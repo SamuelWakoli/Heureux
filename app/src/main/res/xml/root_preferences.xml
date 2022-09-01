@@ -1,0 +1,85 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="General">
+
+        <Preference
+            app:icon="@drawable/ic_outline_account_box_24"
+            app:key="KEY_PROFILE"
+            app:selectable="true"
+            app:summary="Edit profile settings"
+            app:title="Profile" />
+        <!--
+                    <intent
+                        android:targetPackage="com.inystudio.heureux.oldcode.account"
+                        android:targetClass="com.inystudio.heureux.ui.account.EditProfileActivity" />
+                </Preference>-->
+        <!-- The app crashed on using the navigation
+         method below-->
+        <!-- android:fragment="com.inystudio.heureux.ui.account.EditProfileFragment"-->
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:icon="@drawable/ic_outline_notifications_active_24"
+            app:key="KEY_CHAT_NOTIFICATIONS"
+            app:summary="When turned on, you will receive chat notifications anytime you are connected to the internet."
+            app:title="Chat Notifications" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="Security">
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_outline_fingerprint_24"
+            app:key="KEY_SECURITY_BIOMETRICS"
+            app:summary="This will request you to unlock the app every time you open it, using fingerprint."
+            app:title="Secure App using Biometrics" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="About">
+
+        <Preference
+            app:icon="@drawable/ic_outline_info_24"
+            app:selectable="false"
+            app:summary="At Heureux Properties, we xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx" />
+
+        <Preference
+            app:icon="@drawable/ic_outline_perm_device_information_24"
+            app:selectable="false"
+            app:summary="1.0"
+            app:title="Application Version" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:summary="Read the frequently asked questions in  this section."
+            app:title="FAQ">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.faq.com" />
+        </Preference>
+
+        <Preference
+            app:title="Visit our Office"
+            app:summary="This will launch Google maps with our location pinned. You will have to press the navigation button to get the directions."
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://googlemaps.com/heureux"/>
+        </Preference>
+
+        <Preference
+            app:key="KEY_TERMS"
+            app:iconSpaceReserved="false"
+            app:summary="Read our terms and conditions in this section."
+            app:title="Terms and Conditions"/>
+
+        <Preference
+            app:key="SIGN_OUT"
+            app:title="Sign out"
+            app:icon="@drawable/ic_baseline_exit_to_app_24"/>
+    </PreferenceCategory>
+</PreferenceScreen>

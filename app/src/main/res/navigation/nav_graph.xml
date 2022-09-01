@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.inystudio.heureux.ui.account.AccountFragment"
+        android:label="@string/account"
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_profileSettingsFragment"
+            app:destination="@id/profileSettingsFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_viewMyPurchasesFragment"
+            app:destination="@id/viewMyPurchasesFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_termsFragment"
+            app:destination="@id/termsFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_reportIssueFragment"
+            app:destination="@id/reportIssueFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.inystudio.heureux.ui.chat.ChatFragment"
+        android:label="@string/chat"
+        tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.inystudio.heureux.ui.home.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.inystudio.heureux.ui.account.SettingsFragment"
+        android:label="@string/settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_profileSettingsFragment"
+            app:destination="@id/profileSettingsFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_termsFragment"
+            app:destination="@id/termsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileSettingsFragment"
+        android:name="com.inystudio.heureux.ui.account.ProfileSettingsFragment"
+        android:label="@string/profile_settings"
+        tools:layout="@layout/fragment_profile_settings" />
+    <fragment
+        android:id="@+id/viewMyPurchasesFragment"
+        android:name="com.inystudio.heureux.ui.account.my_purchases.ViewMyPurchasesFragment"
+        android:label="My Purchases"
+        tools:layout="@layout/fragment_view_my_purchases" />
+    <fragment
+        android:id="@+id/reportIssueFragment"
+        android:name="com.inystudio.heureux.ui.account.ReportIssueFragment"
+        android:label="Report Issue"
+        tools:layout="@layout/fragment_report_issue" />
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="com.inystudio.heureux.ui.account.TermsFragment"
+        android:label="Terms and Conditions"
+        tools:layout="@layout/fragment_terms" />
+</navigation>
