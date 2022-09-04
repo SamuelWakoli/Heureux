@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.account.my_purchases.ViewMyPurchasesFragment"
+    tools:context=".ui.account.my_purchases.ViewMyPropertiesFragment"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +33,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10"
-            tools:listitem="@layout/list_item_view_my_purchases" />
+            tools:listitem="@layout/list_item_view_my_properties" />
 
         <TextView
             android:id="@+id/textView11"
@@ -58,7 +58,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView11"
-            tools:listitem="@layout/list_item_view_my_purchases">
+            tools:listitem="@layout/list_item_view_my_properties">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -85,7 +85,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12"
-            tools:listitem="@layout/list_item_view_my_purchases" />
+            tools:listitem="@layout/list_item_view_my_properties" />
 
         <TextView
             android:id="@+id/textView13"

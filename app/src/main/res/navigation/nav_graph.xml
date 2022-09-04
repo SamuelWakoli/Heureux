@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_accountFragment_to_reportIssueFragment"
             app:destination="@id/reportIssueFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_makePaymentFragment"
+            app:destination="@id/makePaymentFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -34,10 +37,14 @@
         android:id="@+id/homeFragment"
         android:name="com.inystudio.heureux.ui.home.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_propertyDetailsFragment"
+            app:destination="@id/propertyDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.inystudio.heureux.ui.account.SettingsFragment"
+        android:name="com.inystudio.heureux.ui.account.settings.SettingsFragment"
         android:label="@string/settings" >
         <action
             android:id="@+id/action_settingsFragment_to_profileSettingsFragment"
@@ -45,25 +52,56 @@
         <action
             android:id="@+id/action_settingsFragment_to_termsFragment"
             app:destination="@id/termsFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileSettingsFragment"
-        android:name="com.inystudio.heureux.ui.account.ProfileSettingsFragment"
+        android:name="com.inystudio.heureux.ui.account.profile_settings.ProfileSettingsFragment"
         android:label="@string/profile_settings"
         tools:layout="@layout/fragment_profile_settings" />
     <fragment
         android:id="@+id/viewMyPurchasesFragment"
-        android:name="com.inystudio.heureux.ui.account.my_purchases.ViewMyPurchasesFragment"
-        android:label="My Purchases"
-        tools:layout="@layout/fragment_view_my_purchases" />
+        android:name="com.inystudio.heureux.ui.account.my_purchases.ViewMyPropertiesFragment"
+        android:label="@string/my_properties"
+        tools:layout="@layout/fragment_view_my_properties" />
     <fragment
         android:id="@+id/reportIssueFragment"
-        android:name="com.inystudio.heureux.ui.account.ReportIssueFragment"
-        android:label="Report Issue"
+        android:name="com.inystudio.heureux.ui.account.report_issue.ReportIssueFragment"
+        android:label="@string/report_issue"
         tools:layout="@layout/fragment_report_issue" />
     <fragment
         android:id="@+id/termsFragment"
-        android:name="com.inystudio.heureux.ui.account.TermsFragment"
-        android:label="Terms and Conditions"
+        android:name="com.inystudio.heureux.ui.account.terms.TermsFragment"
+        android:label="@string/terms_and_conditions"
         tools:layout="@layout/fragment_terms" />
+    <fragment
+        android:id="@+id/propertyDetailsFragment"
+        android:name="com.inystudio.heureux.ui.home.property_details.PropertyDetailsFragment"
+        android:label="@string/details"
+        tools:layout="@layout/fragment_property_details" >
+        <action
+            android:id="@+id/action_propertyDetailsFragment_to_paymentSetupFragment"
+            app:destination="@id/paymentSetupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentSetupFragment"
+        android:name="com.inystudio.heureux.ui.home.payment_setup.PaymentSetupFragment"
+        android:label="@string/set_payment"
+        tools:layout="@layout/fragment_payment_setup" />
+    <fragment
+        android:id="@+id/makePaymentFragment"
+        android:name="com.inystudio.heureux.ui.home.make_payment.MakePaymentFragment"
+        android:label="@string/make_payment"
+        tools:layout="@layout/fragment_make_payment" >
+        <action
+            android:id="@+id/action_makePaymentFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.inystudio.heureux.ui.about.AboutUsFragment"
+        android:label="@string/about_us"
+        tools:layout="@layout/fragment_about_us" />
 </navigation>

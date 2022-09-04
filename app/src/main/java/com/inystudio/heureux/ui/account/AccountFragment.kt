@@ -7,17 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.inystudio.heureux.R
 
 
 class AccountFragment : Fragment() {
+    private lateinit var makePaymentBtn: Button
     private lateinit var setProfileBtn: Button
     private lateinit var purchasesBtn: Button
     private lateinit var termsBtn: Button
     private lateinit var reportBtn: Button
     private lateinit var settingsBtn: Button
+
+    private lateinit var userNameDisplay: TextView
+    private lateinit var userEmailDisplay: TextView
+    private lateinit var userPhoneDisplay: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,9 +35,22 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        userNameDisplay = view.findViewById(R.id.user_name_display)
+        userEmailDisplay = view.findViewById(R.id.user_email_display)
+        userPhoneDisplay = view.findViewById(R.id.user_phone_display)
+
+
         setProfileBtn = view.findViewById(R.id.set_profile_btn)
         setProfileBtn.setOnClickListener {
             findNavController().navigate(R.id.action_accountFragment_to_profileSettingsFragment)
+        }
+        if (userNameDisplay.text != getString(R.string.user_name)) {
+            setProfileBtn.visibility = View.GONE
+        }
+
+        makePaymentBtn = view.findViewById(R.id.make_pay_btn)
+        makePaymentBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_accountFragment_to_makePaymentFragment)
         }
 
         purchasesBtn = view.findViewById(R.id.purchases_btn)

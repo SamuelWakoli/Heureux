@@ -31,7 +31,7 @@
             app:cardPreventCornerOverlap="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            app:strokeColor="@android:color/white"
+            app:strokeColor="@color/ic_color"
             app:strokeWidth="2dp">
 
             <ImageView
@@ -40,7 +40,7 @@
                 android:layout_margin="0dp"
                 android:contentDescription="@string/user_image"
                 android:scaleType="centerCrop"
-                tools:src="@drawable/ic_outline_account_box_24" />
+                tools:src="@tools:sample/avatars" />
         </com.google.android.material.card.MaterialCardView>
 
         <Button
@@ -56,30 +56,30 @@
             app:layout_constraintTop_toTopOf="@+id/userImageCardView" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/user_name_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/user_name"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/textView5"
+            app:layout_constraintBottom_toTopOf="@+id/user_email_display"
             app:layout_constraintStart_toEndOf="@+id/userImageCardView"
             app:layout_constraintTop_toTopOf="@+id/userImageCardView" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/user_email_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/email"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/textView6"
+            app:layout_constraintBottom_toTopOf="@+id/user_phone_display"
             app:layout_constraintStart_toEndOf="@+id/userImageCardView"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/user_name_display" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/user_phone_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -88,7 +88,7 @@
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/userImageCardView"
             app:layout_constraintStart_toEndOf="@+id/userImageCardView"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/user_email_display" />
 
         <View
             android:id="@+id/divider"
@@ -114,7 +114,7 @@
             app:icon="@drawable/ic_outline_shopping_basket_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider" />
+            app:layout_constraintTop_toBottomOf="@+id/make_pay_btn" />
 
         <Button
             android:id="@+id/ts_and_cs_btn"
@@ -166,6 +166,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/settings_btn" />
+
+        <Button
+            android:id="@+id/make_pay_btn"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/make_payment"
+            app:icon="@drawable/ic_outline_payments_24"
+            app:layout_constraintEnd_toEndOf="@+id/purchases_btn"
+            app:layout_constraintStart_toStartOf="@+id/purchases_btn"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

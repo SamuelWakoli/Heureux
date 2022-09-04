@@ -5,22 +5,32 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.inystudio.heureux.R
 import com.inystudio.heureux.databinding.ActivityMainBinding
 import com.inystudio.heureux.ui.Utils.showPermissionRequestExplanation
+import java.util.concurrent.Executor
 
 class MainActivity : AppCompatActivity() {
+
+    private var isBioLockOn: Boolean = false
+    private lateinit var executor: Executor
+    private lateinit var biometricPrompt: BiometricPrompt
+    private lateinit var promptInfo: BiometricPrompt.PromptInfo
 
     private lateinit var toolbar        : MaterialToolbar
     private lateinit var navController  : NavController
@@ -37,6 +47,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Auth on create
+        biometricAuth()
+
+
+
+
         toolbar = binding.toolbar
         bottomNavView = binding.bottomNavView
         val navHostFrag = supportFragmentManager.findFragmentById(R.id.nav_host_frag) as NavHostFragment
@@ -50,16 +66,14 @@ class MainActivity : AppCompatActivity() {
 
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-
             when (destination.id) {
-                R.id.viewMyPurchasesFragment -> bottomNavView.visibility = View.GONE
-                R.id.termsFragment -> bottomNavView.visibility = View.GONE
-                R.id.reportIssueFragment -> bottomNavView.visibility = View.GONE
-                R.id.settingsFragment -> bottomNavView.visibility = View.GONE
-                R.id.profileSettingsFragment -> bottomNavView.visibility = View.GONE
-                else -> bottomNavView.visibility = View.VISIBLE
+                R.id.homeFragment -> bottomNavView.visibility = View.VISIBLE
+                R.id.chatFragment -> bottomNavView.visibility = View.VISIBLE
+                R.id.accountFragment -> bottomNavView.visibility = View.VISIBLE
+                else -> bottomNavView.visibility = View.GONE
             }
         }
+
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()){}
 
@@ -68,6 +82,111 @@ class MainActivity : AppCompatActivity() {
             callAgent()
             true
         }
+        toolbar.menu.findItem(R.id.option_about_us).setOnMenuItemClickListener {
+            navController.navigate(R.id.aboutUsFragment)
+            true
+        }
+        toolbar.menu.findItem(R.id.option_make_payment).setOnMenuItemClickListener {
+            navController.navigate(R.id.makePaymentFragment)
+            true
+        }
+        toolbar.menu.findItem(R.id.option_settings).setOnMenuItemClickListener {
+            navController.navigate(R.id.settingsFragment)
+            true
+        }
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.aboutUsFragment -> toolbar.menu.setGroupVisible(R.id.app_options_menu, false)
+                R.id.makePaymentFragment -> toolbar.menu.setGroupVisible(R.id.app_options_menu, false)
+                R.id.settingsFragment -> toolbar.menu.setGroupVisible(R.id.app_options_menu, false)
+                else -> toolbar.menu.setGroupVisible(R.id.app_options_menu, true)
+            }
+        }
+    }
+
+    private fun biometricAuth() {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        isBioLockOn = sharedPreferences.getBoolean("KEY_SECURITY_BIOMETRICS", false)
+
+        if (isBioLockOn) {
+            executor = ContextCompat.getMainExecutor(this)
+            biometricPrompt = BiometricPrompt(
+                this@MainActivity,
+                executor,
+                object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                        super.onAuthenticationError(errorCode, errString)
+
+                        if (errorCode == BiometricPrompt.ERROR_HW_NOT_PRESENT
+                            && errorCode == BiometricPrompt.ERROR_HW_UNAVAILABLE
+                            && errorCode == BiometricPrompt.ERROR_VENDOR){
+                            Toast.makeText(this@MainActivity,
+                                "$errString Disable biometrics.",
+                                Toast.LENGTH_LONG).show()
+                            isBioLockOn = false
+                            navController.navigate(R.id.settingsFragment)
+                        }
+                        if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON){
+                            finish()
+                        }
+                        if (errorCode == BiometricPrompt.ERROR_LOCKOUT){
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Please try again after 30 seconds.",
+                                Toast.LENGTH_LONG).show()
+                            finish()
+                        }
+                        if (errorCode == BiometricPrompt.ERROR_TIMEOUT){
+                            Toast.makeText(
+                            this@MainActivity,
+                            "$errString Please try again later.",
+                            Toast.LENGTH_LONG).show()
+                            finish()
+                        }
+                        if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS){
+                            Toast.makeText(this@MainActivity,
+                                "$errString Disable biometrics.",
+                                Toast.LENGTH_LONG).show()
+                            isBioLockOn = false
+                            navController.navigate(R.id.settingsFragment)
+                        }
+                        if (errorCode == BiometricPrompt.ERROR_USER_CANCELED){
+                            finish()
+                        }
+                        if (errorCode == BiometricPrompt.ERROR_CANCELED){
+                            Toast.makeText(this@MainActivity,
+                            errString,
+                            Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+                    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                        super.onAuthenticationSucceeded(result)
+                        Toast.makeText(this@MainActivity, "Welcome back!", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    override fun onAuthenticationFailed() {
+                        super.onAuthenticationFailed()
+                        Toast.makeText(this@MainActivity,"Please try again", Toast.LENGTH_LONG).show()
+                        Thread.sleep(500)
+                        finish()
+                    }
+                })
+            promptInfo = BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Heureux Properties")
+                .setSubtitle("Authenticate using fingerprint to continue")
+                .setNegativeButtonText("Cancel")
+                .build()
+
+
+
+            //start auth
+            biometricPrompt.authenticate(promptInfo)
+        }
+
+
     }
 
 
@@ -75,7 +194,7 @@ class MainActivity : AppCompatActivity() {
         when {
             ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
                     == PackageManager.PERMISSION_GRANTED -> {
-                val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "+254704176344"))
+                val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "+254797228948"))
                 startActivity(intent)
             }
 
@@ -91,6 +210,15 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        biometricAuth()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        biometricAuth()
+    }
 
 //    fun signOut() {
 //        FirebaseAuth.getInstance().signOut()

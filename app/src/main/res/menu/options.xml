@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <group android:id="@+id/app_options_menu">
     <item
         android:id="@+id/option_call_agent"
         android:title="@string/call_agent" />
+    <item
+        android:id="@+id/option_about_us"
+        android:title="@string/about_us"/>
+    <item
+        android:id="@+id/option_make_payment"
+        android:title="@string/make_payment"/>
+    <item
+        android:id="@+id/option_settings"
+        android:title="@string/settings"/>
+    </group>
 </menu>

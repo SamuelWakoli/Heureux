@@ -6,4 +6,13 @@
     </style>
 
     <style name="Theme.Heureux" parent="Base.Theme.Heureux" />
+
+    <style name="Theme.Heureux.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Heureux.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Heureux.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

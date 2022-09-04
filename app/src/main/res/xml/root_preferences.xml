@@ -34,7 +34,7 @@
         <SwitchPreferenceCompat
             app:icon="@drawable/ic_outline_fingerprint_24"
             app:key="KEY_SECURITY_BIOMETRICS"
-            app:summary="This will request you to unlock the app every time you open it, using fingerprint."
+            app:summary="This will request you to unlock the app every time you open it, using fingerprint. This feature works if your device has a fingerprint sensor"
             app:title="Secure App using Biometrics" />
     </PreferenceCategory>
 
@@ -43,9 +43,10 @@
         app:title="About">
 
         <Preference
+            app:key="KEY_ABOUT_US"
             app:icon="@drawable/ic_outline_info_24"
-            app:selectable="false"
-            app:summary="At Heureux Properties, we xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx xxxxx" />
+            android:title="Heureux Properties"
+            app:summary="We are a Real Estate Company that assists in the acquisition of good quality and well priced land/property. Tap here for more details." />
 
         <Preference
             app:icon="@drawable/ic_outline_perm_device_information_24"
@@ -54,28 +55,16 @@
             app:title="Application Version" />
 
         <Preference
-            app:iconSpaceReserved="false"
-            app:summary="Read the frequently asked questions in  this section."
-            app:title="FAQ">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://www.faq.com" />
-        </Preference>
+            android:icon="@drawable/ic_outline_location_on_24"
+            app:key="KEY_OPEN_MAP"
+            app:summary="We are located at JETRO CHAMBERS, 4th FLOOR; WESTLANDS, Nairobi. Tap here to view location."
+            app:title="Visit our Office" />
 
         <Preference
-            app:title="Visit our Office"
-            app:summary="This will launch Google maps with our location pinned. You will have to press the navigation button to get the directions."
-            app:iconSpaceReserved="false">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://googlemaps.com/heureux"/>
-        </Preference>
-
-        <Preference
+            android:icon="@drawable/ic_outline_policy_24"
             app:key="KEY_TERMS"
-            app:iconSpaceReserved="false"
             app:summary="Read our terms and conditions in this section."
-            app:title="Terms and Conditions"/>
+            app:title="Terms and Conditions" />
 
         <Preference
             app:key="SIGN_OUT"

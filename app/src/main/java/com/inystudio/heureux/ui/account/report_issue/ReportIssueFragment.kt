@@ -1,8 +1,5 @@
-package com.inystudio.heureux.ui.account
+package com.inystudio.heureux.ui.account.report_issue
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.view.isVisible
 import com.inystudio.heureux.R
 
 class ReportIssueFragment : Fragment() {
@@ -34,20 +30,14 @@ class ReportIssueFragment : Fragment() {
         val problemText = descriptionText.text.toString()
 
         errorText = view.findViewById(R.id.error_text)
-
-        reportBtn = view.findViewById(R.id.report_btn)
+        reportBtn = view.findViewById(R.id.send_report_btn)
         reportBtn.setOnClickListener {
-            try {
-                val intent = Intent(Intent.ACTION_SENDTO).apply {
-                    this.data = Uri.parse("mailto:swwakoli@gmail.com")
-                    this.putExtra(Intent.EXTRA_SUBJECT, "Problem Report for Heureux")
-                    this.putExtra(Intent.EXTRA_TEXT, problemText)
-                    this.`package` = "com.google.android.gm"
-                }
-                startActivity(intent)
-            } catch (ex: ActivityNotFoundException) {
-                errorText.isVisible = true
-                errorText.text = getString(R.string.no_gmail)
+
+            if (errorText.text.toString().length < 16) errorText.error = "Please tell us more information"
+            val enteredErrorText = errorText.text.toString()
+            if (enteredErrorText.isNotEmpty() && enteredErrorText.length >= 16) {
+                // when the report has been successfully updated to the data base, {errorText} to show that report
+                //has been submited. This is after database success
             }
         }
     }
