@@ -57,7 +57,7 @@ add the bundle info(property) to the user account in database.
 
         <TextView
             android:id="@+id/set_up_pay_property_price"
-            android:layout_width="mat"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/price_tag_ksh"
             android:textSize="16sp"

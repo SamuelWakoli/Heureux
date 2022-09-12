@@ -8,7 +8,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.inystudio.heureux.R
+import com.inystudio.heureux.ui.main.MainActivity
+import com.inystudio.heureux.ui.start.SignInActivity
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -62,5 +66,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
+        val signOutBtn = findPreference<Preference>("SIGN_OUT")
+        signOutBtn?.setOnPreferenceClickListener {
+            FirebaseAuth.getInstance().signOut()
+            Toast.makeText(requireContext(), "You signed out successfully", Toast.LENGTH_LONG).show()
+            true
+        }
     }
 }

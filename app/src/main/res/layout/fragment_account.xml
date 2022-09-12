@@ -21,39 +21,28 @@
             app:srcCompat="@drawable/logo_light"
             tools:ignore="ImageContrastCheck" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/userImageCardView"
+        <ImageView
+            android:id="@+id/user_photo_display_acc"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
-            app:cardCornerRadius="60dp"
-            app:cardPreventCornerOverlap="true"
+            android:contentDescription="@string/user_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            app:strokeColor="@color/ic_color"
-            app:strokeWidth="2dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="0dp"
-                android:contentDescription="@string/user_image"
-                android:scaleType="centerCrop"
-                tools:src="@tools:sample/avatars" />
-        </com.google.android.material.card.MaterialCardView>
+            tools:src="@tools:sample/avatars" />
 
         <Button
             android:id="@+id/set_profile_btn"
             style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:text="@string/set_your_profile"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/userImageCardView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/userImageCardView" />
+            app:layout_constraintBottom_toBottomOf="@id/user_photo_display_acc"
+            app:layout_constraintEnd_toEndOf="@+id/make_pay_btn"
+            app:layout_constraintStart_toStartOf="@+id/make_pay_btn"
+            app:layout_constraintTop_toTopOf="@id/user_photo_display_acc" />
 
         <TextView
             android:id="@+id/user_name_display"
@@ -61,10 +50,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/user_name"
+            android:textSize="20sp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/user_email_display"
-            app:layout_constraintStart_toEndOf="@+id/userImageCardView"
-            app:layout_constraintTop_toTopOf="@+id/userImageCardView" />
+            app:layout_constraintStart_toEndOf="@id/user_photo_display_acc"
+            app:layout_constraintTop_toTopOf="@id/user_photo_display_acc" />
 
         <TextView
             android:id="@+id/user_email_display"
@@ -73,9 +63,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/email"
+            android:textSize="16sp"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/user_phone_display"
-            app:layout_constraintStart_toEndOf="@+id/userImageCardView"
+            app:layout_constraintBottom_toTopOf="@id/user_phone_display"
+            app:layout_constraintStart_toEndOf="@id/user_photo_display_acc"
             app:layout_constraintTop_toBottomOf="@+id/user_name_display" />
 
         <TextView
@@ -85,9 +76,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/user_phone_number"
+            android:textSize="16sp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/userImageCardView"
-            app:layout_constraintStart_toEndOf="@+id/userImageCardView"
+            app:layout_constraintBottom_toBottomOf="@id/user_photo_display_acc"
+            app:layout_constraintStart_toEndOf="@id/user_photo_display_acc"
             app:layout_constraintTop_toBottomOf="@+id/user_email_display" />
 
         <View
@@ -100,7 +92,7 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userImageCardView" />
+            app:layout_constraintTop_toBottomOf="@+id/user_photo_display_acc" />
 
         <Button
             android:id="@+id/purchases_btn"

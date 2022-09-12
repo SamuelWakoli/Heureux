@@ -19,10 +19,12 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.inystudio.heureux.R
 import com.inystudio.heureux.databinding.ActivityMainBinding
 import com.inystudio.heureux.ui.Utils.showPermissionRequestExplanation
+import com.inystudio.heureux.ui.start.SignInActivity
 import java.util.concurrent.Executor
 
 class MainActivity : AppCompatActivity() {
@@ -38,9 +40,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
@@ -49,9 +48,6 @@ class MainActivity : AppCompatActivity() {
 
         //Auth on create
         biometricAuth()
-
-
-
 
         toolbar = binding.toolbar
         bottomNavView = binding.bottomNavView
@@ -102,6 +98,14 @@ class MainActivity : AppCompatActivity() {
                 R.id.settingsFragment -> toolbar.menu.setGroupVisible(R.id.app_options_menu, false)
                 else -> toolbar.menu.setGroupVisible(R.id.app_options_menu, true)
             }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (Firebase.auth.currentUser == null) {
+            startActivity(Intent(this, SignInActivity::class.java))
+            finish()
         }
     }
 
@@ -208,21 +212,4 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
-
-    override fun onResume() {
-        super.onResume()
-        biometricAuth()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        biometricAuth()
-    }
-
-//    fun signOut() {
-//        FirebaseAuth.getInstance().signOut()
-//        startActivity(Intent(this, SignInActivity::class.java))
-//        finish()
-//    }
 }

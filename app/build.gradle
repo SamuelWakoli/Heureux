@@ -44,17 +44,18 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.20-Beta"
     implementation 'androidx.appcompat:appcompat:1.5.0'
-    implementation 'com.google.android.material:material:1.7.0-beta01'
+    implementation 'com.google.android.material:material:1.8.0-alpha01'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //navigation, lifecycle
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 
-    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    //preference
+    implementation 'androidx.preference:preference-ktx:1.2.0'
 
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
@@ -67,17 +68,19 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:8.0.1'
 
     // Google
-    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation 'com.google.android.gms:play-services-auth:20.3.0'
 
-//    // Picasso
-//    implementation 'com.squareup.picasso:picasso:2.71828'
-//    implementation 'jp.wasabeef:picasso-transformations:2.4.0'
-//    implementation 'androidx.preference:preference:1.2.0'
+    //COIL
+    implementation 'io.coil-kt:coil:2.2.1'
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.13.2'
-    implementation 'androidx.preference:preference-ktx:1.2.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
+
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'jp.wasabeef:picasso-transformations:2.4.0'
+
 
     //biometric Auth
     implementation 'androidx.biometric:biometric-ktx:1.2.0-alpha04'

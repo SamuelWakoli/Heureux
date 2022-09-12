@@ -39,7 +39,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:iconSpaceReserved="false"
         app:title="About">
 
         <Preference
@@ -66,6 +65,11 @@
             app:summary="Read our terms and conditions in this section."
             app:title="Terms and Conditions" />
 
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="My Account">
         <Preference
             app:key="SIGN_OUT"
             app:title="Sign out"

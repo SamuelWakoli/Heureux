@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -15,9 +17,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.inystudio.heureux.R
-import java.util.*
+import com.inystudio.heureux.ui.model.User
 
 class ProfileSettingsFragment : Fragment() {
+    companion object {
+        private const val USERS = "USERS"
+        private val _userName = FirebaseAuth.getInstance().currentUser?.displayName.toString()
+        private val PROFILE_PICS = "USER PROFILE PICTURES/$_userName"
+    }
 
     private lateinit var selectImgBtn: Button
     private lateinit var profileImgHolder: ImageView
@@ -27,10 +34,13 @@ class ProfileSettingsFragment : Fragment() {
     private lateinit var enteredNatIdNum: TextInputEditText
     private lateinit var enteredResidence: TextInputEditText
     private lateinit var saveProfileBtn: Button
+    private lateinit var isSavedMessage: TextView
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var database: FirebaseDatabase
-    private lateinit var storage: FirebaseStorage
+    //text from screen
+    private lateinit var name: String
+    private lateinit var phoneNum: String
+    private lateinit var natIdNum: String
+    private lateinit var userReside: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +60,7 @@ class ProfileSettingsFragment : Fragment() {
         enteredNatIdNum = view.findViewById(R.id.user_nat_id_number)
         enteredResidence = view.findViewById(R.id.user_residence)
         saveProfileBtn = view.findViewById(R.id.save_profile_btn)
+        isSavedMessage = view.findViewById(R.id.saved_profile_message)
 
         selectImgBtn.setOnClickListener {
             selectImage()
@@ -59,21 +70,21 @@ class ProfileSettingsFragment : Fragment() {
             if (enteredName.text?.isEmpty() == true) enteredName.error = "Enter your name"
             if (enteredName.text?.isEmpty() == false
                 && enteredName.text.toString().length < 6) enteredName.error = "Enter your full name"
-            val name = enteredName.text.toString()
+            name = enteredName.text.toString()
 
             if (enteredPhoneNum.text?.isEmpty() == true) enteredPhoneNum.error = "Enter your phone number"
             if (enteredPhoneNum.text?.isEmpty() == false && enteredPhoneNum.text.toString().length !in 10..16) enteredPhoneNum.error = "Phone number not valid"
-            val phoneNum = enteredPhoneNum.text.toString()
+            phoneNum = enteredPhoneNum.text.toString()
 
             if (enteredNatIdNum.text?.isEmpty() == true) enteredNatIdNum.error = "Enter your national ID number"
             if (enteredNatIdNum.text?.isEmpty() == false
                 && enteredNatIdNum.text.toString().length !in 8..16) enteredNatIdNum.error = "Correct your national ID number"
-            val natIdNum = enteredNatIdNum.text.toString()
+            natIdNum = enteredNatIdNum.text.toString()
 
             if (enteredResidence.text?.isEmpty() == true) enteredResidence.error = "Enter your place of residence"
             if (enteredResidence.text?.isEmpty() == false
                 && enteredResidence.text.toString().length !in 5..16) enteredResidence.error = "Enter your place of residence"
-            val userReside = enteredResidence.text.toString()
+            userReside = enteredResidence.text.toString()
 
 
             if (name.isNotEmpty() && name.length >= 6  &&
@@ -81,16 +92,10 @@ class ProfileSettingsFragment : Fragment() {
                 natIdNum.isNotEmpty() && (natIdNum.length in 8..16) &&
                 userReside.isNotEmpty() && (userReside.length in 5..16)){
 
-                Snackbar.make(view,  "Saving Profile...", Snackbar.LENGTH_LONG).setAnchorView(R.id.user_phone_number)
-                    .show()
-
                 //upload this info to db
+                saveToDatabase(imageUri)
             }
         }
-
-
-
-
     }
 
     private fun selectImage(){
@@ -107,43 +112,43 @@ class ProfileSettingsFragment : Fragment() {
         if (requestCode == 16 && data != null && data.data != null){
             imageUri = data.data!!
             profileImgHolder.setImageURI(imageUri)
-            uploadProfileImg()
         }
     }
 
-    private fun uploadProfileImg() {
-        auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
-        storage = FirebaseStorage.getInstance()
+    private fun saveToDatabase(uri: Uri){
+        // First, upload the image
+        val storageReference = FirebaseStorage.getInstance().getReference(PROFILE_PICS)
+        storageReference.putFile(uri)
+            .addOnSuccessListener(requireActivity())
+            { taskSnapshot -> //2nd, get the downloadUrl for the image
+            //then add it to the user account
+                taskSnapshot.metadata!!.reference!!.downloadUrl
+                    .addOnSuccessListener { uri ->
+                        val user =
+                            User(uri.toString(), name, phoneNum, natIdNum, userReside, null)
+                        val database = FirebaseDatabase.getInstance().getReference(USERS)
+                        val userNodeInDB = FirebaseAuth.getInstance().currentUser?.displayName.toString()
+                        database.child(userNodeInDB).setValue(user).addOnSuccessListener {
 
-        val storage = FirebaseStorage.getInstance()
-        val time = Date().time
-        val reference = storage.reference
-            .child("User Profiles")
-            .child(time.toString() + "")
-        reference.putFile(imageUri).addOnCompleteListener { task ->
-            if(task.isSuccessful){
-                reference.downloadUrl.addOnCompleteListener { imageUri ->
-                    val filePath = imageUri.toString()
-                    val obj = HashMap<String, Any>()
-                    obj["image"] = filePath
-                    database.reference
-                        .child("Profile Pictures")
-                        .child(FirebaseAuth.getInstance().uid!!)
-                        .updateChildren(obj).addOnSuccessListener {
-                            Snackbar.make(requireView(),  "Profile image saved", Snackbar.LENGTH_SHORT).setAnchorView(R.id.user_phone_number)
-                                .show()
-                        }
-                        .addOnFailureListener {
+                            saveProfileBtn.isVisible = false
+                            isSavedMessage.isVisible = true
+                            selectImgBtn.isClickable = false
+                            enteredName.isClickable = false
+                            enteredPhoneNum.isClickable = false
+                            enteredNatIdNum.isClickable = false
+                            enteredResidence.isClickable = false
 
-                            Snackbar.make(requireView(),  "Profile image not saved. Please try again", Snackbar.LENGTH_LONG).setAnchorView(R.id.user_phone_number)
-                                .show()
-
-                        }
-                }
+                            view?.let { it1 ->
+                                Snackbar.make(it1, "Profile saved successfully.", Snackbar.LENGTH_LONG)
+                                    .setAnchorView(enteredResidence).show() }
+                            }
+                            .addOnFailureListener {
+                                view?.let { it1 ->
+                                    Snackbar.make(it1, "Profile not saved. Please try again later.", Snackbar.LENGTH_LONG)
+                                        .setAnchorView(enteredResidence).show() }
+                            }
+                    }
             }
-        }
-
-
+            .addOnFailureListener {  }
     }
 }
