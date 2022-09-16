@@ -193,7 +193,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     private fun callAgent() {
         when {
             ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)

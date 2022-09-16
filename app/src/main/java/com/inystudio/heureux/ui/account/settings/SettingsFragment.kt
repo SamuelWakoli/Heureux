@@ -1,5 +1,6 @@
 package com.inystudio.heureux.ui.account.settings
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,11 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.inystudio.heureux.R
-import com.inystudio.heureux.ui.main.MainActivity
-import com.inystudio.heureux.ui.start.SignInActivity
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -22,6 +20,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val profileSettings = findPreference<Preference>("KEY_PROFILE")
         profileSettings?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_profileSettingsFragment)
+
+            val signOutBtn = findPreference<Preference>("SIGN_OUT")
+            val usersEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
+            signOutBtn?.summary = "You are currently signed in as $usersEmail. Click to sign out"
+
             true
         }
 

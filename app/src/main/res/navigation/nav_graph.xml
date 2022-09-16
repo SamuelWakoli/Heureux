@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
+    android:label="My profile"
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.inystudio.heureux.ui.account.AccountFragment"
         android:label="@string/account"
-        tools:layout="@layout/fragment_account" >
+        tools:layout="@layout/fragment_account">
         <action
             android:id="@+id/action_accountFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
@@ -37,7 +38,7 @@
         android:id="@+id/homeFragment"
         android:name="com.inystudio.heureux.ui.home.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_propertyDetailsFragment"
             app:destination="@id/propertyDetailsFragment" />
@@ -45,7 +46,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.inystudio.heureux.ui.account.settings.SettingsFragment"
-        android:label="@string/settings" >
+        android:label="@string/settings">
         <action
             android:id="@+id/action_settingsFragment_to_profileSettingsFragment"
             app:destination="@id/profileSettingsFragment" />
@@ -80,7 +81,7 @@
         android:id="@+id/propertyDetailsFragment"
         android:name="com.inystudio.heureux.ui.home.property_details.PropertyDetailsFragment"
         android:label="@string/details"
-        tools:layout="@layout/fragment_property_details" >
+        tools:layout="@layout/fragment_property_details">
         <action
             android:id="@+id/action_propertyDetailsFragment_to_paymentSetupFragment"
             app:destination="@id/paymentSetupFragment" />
@@ -94,7 +95,7 @@
         android:id="@+id/makePaymentFragment"
         android:name="com.inystudio.heureux.ui.home.make_payment.MakePaymentFragment"
         android:label="@string/make_payment"
-        tools:layout="@layout/fragment_make_payment" >
+        tools:layout="@layout/fragment_make_payment">
         <action
             android:id="@+id/action_makePaymentFragment_to_homeFragment"
             app:destination="@id/homeFragment" />

@@ -35,6 +35,7 @@
         <entry key="app/src/main/res/drawable/ic_outline_shopping_basket_24.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/ic_twotone_info_24.xml" value="0.154" />
         <entry key="app/src/main/res/layout-891x411/fragment_account.xml" value="0.13" />
+        <entry key="app/src/main/res/layout/activity_account_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_all_products.xml" value="0.11332728921124206" />
         <entry key="app/src/main/res/layout/activity_biometric_lock.xml" value="0.41427247451343835" />
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.14194100042753313" />
@@ -49,7 +50,7 @@
         <entry key="app/src/main/res/layout/activty_sign_in.xml" value="0.1322463768115942" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.11332728921124206" />
         <entry key="app/src/main/res/layout/fragment_about_us.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_account_settings.xml" value="0.15818725951261223" />
         <entry key="app/src/main/res/layout/fragment_bookmarks.xml" value="0.1480978260869565" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.15818725951261223" />
@@ -86,7 +87,8 @@
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.13953488372093023" />
         <entry key="app/src/main/res/menu/options.xml" value="0.33" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.17" />
-        <entry key="app/src/main/res/xml/root_preferences.xml" value="0.13333333333333333" />
+        <entry key="app/src/main/res/xml/pref_acc_status.xml" value="0.19166666666666668" />
+        <entry key="app/src/main/res/xml/root_preferences.xml" value="0.25" />
       </map>
     </option>
   </component>

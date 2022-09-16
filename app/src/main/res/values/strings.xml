@@ -9,11 +9,11 @@
     <string name="user_name">User Name</string>
     <string name="email">User Email</string>
     <string name="user_phone_number">User Phone Number</string>
-    <string name="view_my_purchases">View my properties</string>
+    <string name="view_my_purchases">My properties</string>
     <string name="read_terms_and_conditions">Terms and conditions</string>
     <string name="report_issue">Report issue</string>
     <string name="settings">Settings</string>
-    <string name="go_to_settings_to_upload_your_profile_picture_your_information_will_be_used_to_improve_your_experience_in_this_app_and_for_the_purposes_described_in_our_policies_make_sure_to_read_our_terms_and_conditions">Go to settings to upload your profile picture. Your information will be used to improve your experience in this app, and for the purposes described in our policies. Make sure to read our terms and conditions.</string>
+    <string name="go_to_settings_to_upload_your_profile_picture_your_information_will_be_used_to_improve_your_experience_in_this_app_and_for_the_purposes_described_in_our_policies_make_sure_to_read_our_terms_and_conditions">To set your profile, go to Settings->Profile. Your information will be used to improve your experience in this app, and for the purposes described in our policies. Make sure to read our terms and conditions.</string>
     <string name="image_of_company_logo">Image of company logo</string>
     <string name="profile_settings">Profile Settings</string>
     <string name="set_your_profile">Set your profile</string>
@@ -79,4 +79,5 @@
     <string name="price_tag_ksh">Price tag (Ksh.)</string>
     <string name="paymet_setup_instructions">In this section, You will set your payment method, as for the property that you are about to purchase or rent. After the setup, you will click the confirm button to save your payment setup. The agent will call you within 2 hours during our working hours to confirm with you the property you want to buy or rent. You will also be provided with the necessary documents after the call. You will also be requested to inspect the property before signing the documents and starting your payments.</string>
     <string name="your_profile_has_been_saved_successfully">Your profile has been saved successfully.</string>
+    <string name="title_activity_account_details">AccountDetailsActivity</string>
 </resources>

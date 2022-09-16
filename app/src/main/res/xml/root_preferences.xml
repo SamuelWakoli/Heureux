@@ -9,7 +9,7 @@
             app:icon="@drawable/ic_outline_account_box_24"
             app:key="KEY_PROFILE"
             app:selectable="true"
-            app:summary="Edit profile settings"
+            app:summary="Edit/update your profile"
             app:title="Profile" />
         <!--
                     <intent
@@ -73,6 +73,7 @@
         <Preference
             app:key="SIGN_OUT"
             app:title="Sign out"
+            app:summary="You are currently signed in. Click to sign out"
             app:icon="@drawable/ic_baseline_exit_to_app_24"/>
     </PreferenceCategory>
 </PreferenceScreen>
