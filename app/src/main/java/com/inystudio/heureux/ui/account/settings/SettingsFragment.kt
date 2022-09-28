@@ -11,6 +11,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.google.firebase.auth.FirebaseAuth
 import com.inystudio.heureux.R
+import com.inystudio.heureux.ui.main.MainActivity
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -20,11 +21,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val profileSettings = findPreference<Preference>("KEY_PROFILE")
         profileSettings?.setOnPreferenceClickListener {
             findNavController().navigate(R.id.action_settingsFragment_to_profileSettingsFragment)
-
-            val signOutBtn = findPreference<Preference>("SIGN_OUT")
-            val usersEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
-            signOutBtn?.summary = "You are currently signed in as $usersEmail. Click to sign out"
-
+            val sharedPrefe =
+                requireActivity().applicationContext.getSharedPreferences("local", Context.MODE_PRIVATE)
+            val editor = sharedPrefe.edit()
+            editor?.apply{
+                putBoolean("isProfileCreated", true)
+                apply()
+            }
             true
         }
 
@@ -39,7 +42,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findNavController().navigate(R.id.action_settingsFragment_to_aboutUsFragment)
             true
         }
-
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
@@ -59,7 +61,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
-
         val openGoogleMaps = findPreference<Preference>("KEY_OPEN_MAP")
         openGoogleMaps?.setOnPreferenceClickListener {
             val gmmIntentUri = Uri.parse("geo:0,0?q=Jetro Chambers Westlands")
@@ -70,9 +71,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         val signOutBtn = findPreference<Preference>("SIGN_OUT")
+        val usersEmail = FirebaseAuth.getInstance().currentUser?.email.toString()
+        signOutBtn?.summary = "You are currently signed in as $usersEmail. Click to sign out"
         signOutBtn?.setOnPreferenceClickListener {
             FirebaseAuth.getInstance().signOut()
             Toast.makeText(requireContext(), "You signed out successfully", Toast.LENGTH_LONG).show()
+            Thread.sleep(3000)
+            MainActivity().finish()
             true
         }
     }

@@ -39,8 +39,7 @@ class SignInActivity : AppCompatActivity() {
                 .setLogo(R.drawable.logo_light)
                 .setTheme(R.style.Theme_Heureux)
                 .setAvailableProviders(listOf(
-                    AuthUI.IdpConfig.EmailBuilder().build(),
-                    AuthUI.IdpConfig.GoogleBuilder().build()
+                    AuthUI.IdpConfig.EmailBuilder().build()
                 ))
                 .build()
 

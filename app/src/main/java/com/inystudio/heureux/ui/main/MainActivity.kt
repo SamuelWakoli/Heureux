@@ -139,6 +139,7 @@ class MainActivity : AppCompatActivity() {
                                 this@MainActivity,
                                 "Please try again after 30 seconds.",
                                 Toast.LENGTH_LONG).show()
+                            Thread.sleep(3000)
                             finish()
                         }
                         if (errorCode == BiometricPrompt.ERROR_TIMEOUT){
@@ -146,6 +147,7 @@ class MainActivity : AppCompatActivity() {
                             this@MainActivity,
                             "$errString Please try again later.",
                             Toast.LENGTH_LONG).show()
+                            Thread.sleep(3000)
                             finish()
                         }
                         if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS){
@@ -156,6 +158,7 @@ class MainActivity : AppCompatActivity() {
                             navController.navigate(R.id.settingsFragment)
                         }
                         if (errorCode == BiometricPrompt.ERROR_USER_CANCELED){
+                            Thread.sleep(3000)
                             finish()
                         }
                         if (errorCode == BiometricPrompt.ERROR_CANCELED){
@@ -174,7 +177,7 @@ class MainActivity : AppCompatActivity() {
                     override fun onAuthenticationFailed() {
                         super.onAuthenticationFailed()
                         Toast.makeText(this@MainActivity,"Please try again", Toast.LENGTH_LONG).show()
-                        Thread.sleep(500)
+                        Thread.sleep(3000)
                         finish()
                     }
                 })
