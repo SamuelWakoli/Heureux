@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
@@ -92,6 +93,7 @@ class ProfileSettingsFragment : Fragment() {
                 natIdNum.isNotEmpty() && (natIdNum.length in 8..16) &&
                 userReside.isNotEmpty() && (userReside.length in 5..16)){
 
+                Toast.makeText(requireContext(), "Saving...", Toast.LENGTH_LONG).show()
                 //upload this info to db
                 saveToDatabase(imageUri)
             }
@@ -147,6 +149,7 @@ class ProfileSettingsFragment : Fragment() {
                                     Snackbar.make(it1, "Profile not saved. Please try again later.", Snackbar.LENGTH_LONG)
                                         .setAnchorView(enteredResidence).show() }
                             }
+
                     }
             }
             .addOnFailureListener {  }

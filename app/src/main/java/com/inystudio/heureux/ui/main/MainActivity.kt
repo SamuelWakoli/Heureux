@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
 
-    private lateinit var toolbar        : MaterialToolbar
-    private lateinit var navController  : NavController
-    private lateinit var bottomNavView  : BottomNavigationView
+    private lateinit var toolbar: MaterialToolbar
+    private lateinit var navController: NavController
+    private lateinit var bottomNavView: BottomNavigationView
     private lateinit var binding: ActivityMainBinding
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
@@ -51,10 +51,11 @@ class MainActivity : AppCompatActivity() {
 
         toolbar = binding.toolbar
         bottomNavView = binding.bottomNavView
-        val navHostFrag = supportFragmentManager.findFragmentById(R.id.nav_host_frag) as NavHostFragment
+        val navHostFrag =
+            supportFragmentManager.findFragmentById(R.id.nav_host_frag) as NavHostFragment
         navController = navHostFrag.navController
 
-        val topLevelDestinations = setOf(R.id.homeFragment, R.id.chatFragment, R.id.accountFragment)
+        val topLevelDestinations = setOf(R.id.homeFragment, R.id.accountFragment)
         val appBarConfiguration = AppBarConfiguration(topLevelDestinations)
 
         toolbar.setupWithNavController(navController, appBarConfiguration)
@@ -71,11 +72,27 @@ class MainActivity : AppCompatActivity() {
         }
 
         requestPermissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestPermission()){}
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
         toolbar.inflateMenu(R.menu.options)
         toolbar.menu.findItem(R.id.option_call_agent).setOnMenuItemClickListener {
             callAgent()
+            true
+        }
+        toolbar.menu.findItem(R.id.option_whatsapp).setOnMenuItemClickListener {
+            //var myPackage1: String = "com.whatsapp"
+            //var myPackage2: String = "com.w4b"
+            var myPhone = "+254797228948"
+            //var myUrl = "https://api.whatsapp.com/send?phone=" + myPhone
+            var myUrl = "https://wa.me/" + myPhone
+            var intent: Intent = Intent(Intent.ACTION_VIEW)
+            //try {
+            intent.setData(Uri.parse(myUrl))
+            startActivity(intent)
+//            } catch (e: PackageManager.NameNotFoundException) {
+//                Toast.makeText(this, "")
+//            }
+
             true
         }
         toolbar.menu.findItem(R.id.option_about_us).setOnMenuItemClickListener {
@@ -94,7 +111,10 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.aboutUsFragment -> toolbar.menu.setGroupVisible(R.id.app_options_menu, false)
-                R.id.makePaymentFragment -> toolbar.menu.setGroupVisible(R.id.app_options_menu, false)
+                R.id.makePaymentFragment -> toolbar.menu.setGroupVisible(
+                    R.id.app_options_menu,
+                    false
+                )
                 R.id.settingsFragment -> toolbar.menu.setGroupVisible(R.id.app_options_menu, false)
                 else -> toolbar.menu.setGroupVisible(R.id.app_options_menu, true)
             }
@@ -124,47 +144,56 @@ class MainActivity : AppCompatActivity() {
 
                         if (errorCode == BiometricPrompt.ERROR_HW_NOT_PRESENT
                             && errorCode == BiometricPrompt.ERROR_HW_UNAVAILABLE
-                            && errorCode == BiometricPrompt.ERROR_VENDOR){
-                            Toast.makeText(this@MainActivity,
+                            && errorCode == BiometricPrompt.ERROR_VENDOR
+                        ) {
+                            Toast.makeText(
+                                this@MainActivity,
                                 "$errString Disable biometrics.",
-                                Toast.LENGTH_LONG).show()
+                                Toast.LENGTH_LONG
+                            ).show()
                             isBioLockOn = false
                             navController.navigate(R.id.settingsFragment)
                         }
-                        if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON){
+                        if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
                             finish()
                         }
-                        if (errorCode == BiometricPrompt.ERROR_LOCKOUT){
+                        if (errorCode == BiometricPrompt.ERROR_LOCKOUT) {
                             Toast.makeText(
                                 this@MainActivity,
                                 "Please try again after 30 seconds.",
-                                Toast.LENGTH_LONG).show()
+                                Toast.LENGTH_LONG
+                            ).show()
                             Thread.sleep(3000)
                             finish()
                         }
-                        if (errorCode == BiometricPrompt.ERROR_TIMEOUT){
+                        if (errorCode == BiometricPrompt.ERROR_TIMEOUT) {
                             Toast.makeText(
-                            this@MainActivity,
-                            "$errString Please try again later.",
-                            Toast.LENGTH_LONG).show()
+                                this@MainActivity,
+                                "$errString Please try again later.",
+                                Toast.LENGTH_LONG
+                            ).show()
                             Thread.sleep(3000)
                             finish()
                         }
-                        if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS){
-                            Toast.makeText(this@MainActivity,
+                        if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS) {
+                            Toast.makeText(
+                                this@MainActivity,
                                 "$errString Disable biometrics.",
-                                Toast.LENGTH_LONG).show()
+                                Toast.LENGTH_LONG
+                            ).show()
                             isBioLockOn = false
                             navController.navigate(R.id.settingsFragment)
                         }
-                        if (errorCode == BiometricPrompt.ERROR_USER_CANCELED){
+                        if (errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
                             Thread.sleep(3000)
                             finish()
                         }
-                        if (errorCode == BiometricPrompt.ERROR_CANCELED){
-                            Toast.makeText(this@MainActivity,
-                            errString,
-                            Toast.LENGTH_LONG).show()
+                        if (errorCode == BiometricPrompt.ERROR_CANCELED) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                errString,
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     }
 
@@ -176,7 +205,8 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onAuthenticationFailed() {
                         super.onAuthenticationFailed()
-                        Toast.makeText(this@MainActivity,"Please try again", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MainActivity, "Please try again", Toast.LENGTH_LONG)
+                            .show()
                         Thread.sleep(3000)
                         finish()
                     }
@@ -186,7 +216,6 @@ class MainActivity : AppCompatActivity() {
                 .setSubtitle("Authenticate using fingerprint to continue")
                 .setNegativeButtonText("Cancel")
                 .build()
-
 
 
             //start auth

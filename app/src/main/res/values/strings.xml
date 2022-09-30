@@ -80,4 +80,6 @@
     <string name="paymet_setup_instructions">In this section, You will set your payment method, as for the property that you are about to purchase or rent. After the setup, you will click the confirm button to save your payment setup. The agent will call you within 2 hours during our working hours to confirm with you the property you want to buy or rent. You will also be provided with the necessary documents after the call. You will also be requested to inspect the property before signing the documents and starting your payments.</string>
     <string name="your_profile_has_been_saved_successfully">Your profile has been saved successfully.</string>
     <string name="title_activity_account_details">AccountDetailsActivity</string>
+    <string name="properties">Properties</string>
+    <string name="whatsapp">WhatsApp</string>
 </resources>
