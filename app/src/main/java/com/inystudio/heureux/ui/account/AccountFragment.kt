@@ -89,6 +89,7 @@ class AccountFragment : Fragment() {
         }
     }
 
+    //Relearn Android
     private fun loadUserData() {
         val userNodeInDB = FirebaseAuth.getInstance().currentUser?.displayName.toString()
         val database = FirebaseDatabase.getInstance().getReference(USERS)
